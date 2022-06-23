@@ -1,13 +1,13 @@
 import 'dotenv/config';
 import mysql from 'mysql2';
 import express, { json } from 'express';
-import restaurantsRoutes from './routes/workouts.js';
+import restaurantsRoutes from './routes/restaurants';
 
 const connection = mysql.createConnection(process.env.DATABASE_URL || '');
 
-console.log('Connected to PlanetScale!');
-// connection.end();
-connection.connect();
+// console.log('Connected to PlanetScale!');
+// // connection.end();
+// connection.connect();
 
 // app
 const app = express();
@@ -22,35 +22,48 @@ app.use((req, _res, next) => {
   next();
 });
 
-// routes
-app.use('/', (_req, res) => {
-  res.json({
-    status: 'sucess',
-    data: {
-      message: 'Welcome to Express Api!',
-    },
-  });
-});
+app.use('/api/restaurants', restaurantsRoutes);
 
-// api routes
-app.use('/api/', (_req, res) => {
-  res.json({
-    status: 'sucess',
-    data: {
-      message: 'Try /api/v1/restaurants',
-    },
-  });
-});
-app.get('/api/v1/data', (_req, res) => {
+// app.use('/', (_req, res, next) => {
+//   res.json({
+//     status: 'sucess',
+//     data: {
+//       message: 'Welcome to Express Api!',
+//     },
+//   });
+//   next();
+// });
+
+// // api routes
+// app.use('/api', (_req, res, next) => {
+//   res.json({
+//     status: 'sucess',
+//     data: {
+//       message: 'Try /api/restaurants',
+//     },
+//   });
+//   next();
+// });
+app.get('/api/data', (_req, res) => {
   connection.query('SELECT * FROM users', function (err, rows, _fields) {
     if (err) throw err;
     res.json(rows);
   });
 });
 
-app.use('/api/v1/restaurants', restaurantsRoutes);
-
 // listen for requests
-app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+// console.log('Connected to PlanetScale!');
+// connection.end();
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting: ' + err);
+    return;
+  }
+  app.listen(PORT, () => {
+    console.log('[PlanetScale]: Connected to PlanetScale!');
+    console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+  });
 });
+// app.listen(PORT, () => {
+//   console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+// });
