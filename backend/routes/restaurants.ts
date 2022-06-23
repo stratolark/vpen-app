@@ -1,38 +1,28 @@
 import { Router } from 'express';
-import { createNewRestaurant } from '../controllers/restaurantController';
+import {
+  getRestaurant,
+  getAllRestaurants,
+  createNewRestaurant,
+  deleteRestaurant,
+  updateRestaurant,
+} from '../controllers/restaurantController';
 
 // instance of router
 const router = Router();
 
 // GET all workouts
-router.get('/', (_req, res) => {
-  res.json({
-    message: 'All Restaurants',
-  });
-});
+router.get('/', getAllRestaurants);
 
 // GET single restaurant
-router.get('/:id', (req, res) => {
-  res.json({
-    message: `Restaurant ${req.params.id}`,
-  });
-});
+router.get('/:id', getRestaurant);
 
 // POST create new restaurant
 router.post('/', createNewRestaurant);
 
 // DELETE delete restaurant
-router.delete('/:id', (req, res) => {
-  res.json({
-    message: `Delete restaurant ${req.params.id}`,
-  });
-});
+router.delete('/:id', deleteRestaurant);
 
 // PUT or PATCH or POST update restaurant
-router.patch('/:id', (req, res) => {
-  res.json({
-    message: `Update restaurant ${req.params.id}`,
-  });
-});
+router.patch('/:id', updateRestaurant);
 
 export default router;

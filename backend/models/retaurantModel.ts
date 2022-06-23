@@ -48,6 +48,7 @@ export const Restaurant = sequelize.define<RestaurantModel>(
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
+      unique: true,
       autoIncrement: true,
     },
     name: {
