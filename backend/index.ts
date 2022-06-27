@@ -2,7 +2,7 @@ import 'dotenv/config';
 import mysql from 'mysql2';
 import express, { json } from 'express';
 import restaurantsRoutes from './routes/restaurants';
-
+import cors from 'cors';
 const connection = mysql.createConnection(process.env.DATABASE_URL || '');
 
 // console.log('Connected to PlanetScale!');
@@ -12,8 +12,14 @@ const connection = mysql.createConnection(process.env.DATABASE_URL || '');
 // app
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+// Add a list of allowed origins.
+// If you have more origins you would like to add, you can add them to the array below.
+const allowedOrigins = ['http://localhost:3000'];
+const corsOptions: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
 // middleware
+app.use(cors(corsOptions));
 app.use(json());
 
 // middleware
