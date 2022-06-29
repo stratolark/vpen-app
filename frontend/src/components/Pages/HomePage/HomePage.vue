@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <CreateRestaurant />
+  </div>
   <div v-if="error">
     <p>Oops! Error encountered: {{ error.message }}</p>
     <button @click="retry">Retry</button>
@@ -36,6 +39,7 @@
 // import { ref, computed } from "vue";
 import { useFetch } from "../../../lib/useFetch";
 import RestaurantCard from "./components/RestaurantCard.vue";
+import CreateRestaurant from "./components/Forms/CreateRestaurant.vue";
 export default {
   name: "HomePage",
   setup() {
@@ -50,6 +54,6 @@ export default {
       retry,
     };
   },
-  components: { RestaurantCard },
+  components: { RestaurantCard, CreateRestaurant },
 };
 </script>

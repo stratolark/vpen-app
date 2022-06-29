@@ -1,6 +1,6 @@
 {
   "name": "mern-frontend",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
